@@ -718,7 +718,7 @@ if __name__ == '__main__':
     # Optionally write images to disk.
     if opt.write:
       out_file = os.path.join(opt.write_dir, 'frame_%05d.png' % vs.i)
-      mat_file = os.path.join(opt.write_dir, '%06d.png' % vs.i)
+      mat_file = os.path.join(opt.write_dir, '%06d_superpoint.mat' % vs.i)
       print('Writing image to %s' % mat_file)
       savemat(mat_file,{'feature':desc})
       #cv2.imwrite(out_file, out)
