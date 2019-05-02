@@ -52,7 +52,7 @@ import time
 
 import cv2
 import torch
-
+from scipy.io import savemat
 # Stub to warn about opencv version.
 if int(cv2.__version__[0]) < 3: # pragma: no cover
   print('Warning: OpenCV 3 is not installed')
@@ -718,8 +718,10 @@ if __name__ == '__main__':
     # Optionally write images to disk.
     if opt.write:
       out_file = os.path.join(opt.write_dir, 'frame_%05d.png' % vs.i)
-      print('Writing image to %s' % out_file)
-      cv2.imwrite(out_file, out)
+      mat_file = os.path.join(opt.write_dir, '%06d.png' % vs.i)
+      print('Writing image to %s' % mat_file)
+      savemat(mat_file,{'feature':desc})
+      #cv2.imwrite(out_file, out)
 
     end = time.time()
     net_t = (1./ float(end1 - start))
