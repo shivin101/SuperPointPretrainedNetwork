@@ -667,7 +667,13 @@ if __name__ == '__main__':
     start1 = time.time()
     pts, desc, heatmap = fe.run(img)
     end1 = time.time()
-
+    print(pts.shape)
+    print(pts)
+    desc = np.vstack((pts[:2,:],desc))
+    print(desc.shape)
+    mat_file = os.path.join(opt.write_dir, '%06d_superpoint.mat' % vs.i-1)
+    print('Writing image to %s' % mat_file)
+    savemat(mat_file,{'feature':desc})
     # Add points and descriptors to the tracker.
     tracker.update(pts, desc)
 
@@ -718,9 +724,6 @@ if __name__ == '__main__':
     # Optionally write images to disk.
     if opt.write:
       out_file = os.path.join(opt.write_dir, 'frame_%05d.png' % vs.i)
-      mat_file = os.path.join(opt.write_dir, '%06d_superpoint.mat' % vs.i)
-      print('Writing image to %s' % mat_file)
-      savemat(mat_file,{'feature':desc})
       #cv2.imwrite(out_file, out)
 
     end = time.time()
